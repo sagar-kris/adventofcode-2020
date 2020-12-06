@@ -14,31 +14,25 @@ def cleanUp(inputFile):
 def main():
     global inp
     inp = open("./day6input.txt", 'r').read()
-    inp = cleanUp(inp)
+    inp = cleanUp(inp)  # inp is an array of groups. each group is an array of people responses (string).
 
     # PART 1
     counter = 0
     for group in inp:
         tempSet = set()
         for person in group:
-            for char in person:
-                tempSet.add(char)
+            [tempSet.add(char) for char in person]
         counter += len(tempSet)
     print(f'part 1: {counter}')
 
     # PART 2
     counter = 0
     for group in inp:
-        setPerson0 = set([char for char in group[0]])
-        if len(group) == 1:
-            counter += len(setPerson0)
-            continue
-        for personIdx, person in enumerate(group[1:]):
-            tempSet = set([char for char in person])
-            setPerson0 = tempSet.intersection(setPerson0)
-            # for char in person:
-            #     tempSet.add(char)
-        counter += len(setPerson0)
+        intersectSet = set([char for char in group[0]])
+        for person in group[1:]:
+            newSet = set([char for char in person])
+            intersectSet = intersectSet.intersection(newSet)
+        counter += len(intersectSet)
     print(f'part 2: {counter}')
 
 
