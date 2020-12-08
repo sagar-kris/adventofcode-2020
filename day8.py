@@ -45,7 +45,7 @@ def part2Loop(inp2):
 def main():
     global inp
     inp = open("./day8input.txt", 'r').read()
-    inp = cleanUp(inp)  # result is array of formatted passports, each passport is array of fields
+    inp = cleanUp(inp)  # result is array of instructions, 1 instr per line
     # print(inp)
 
     # PART 1
