@@ -2,6 +2,7 @@ import re
 
 inp = 0
 bagDict2 = {}
+counter = 0
 
 
 def cleanUp(inputFile):
@@ -14,16 +15,20 @@ def cleanUp(inputFile):
 
 
 def countChildren(currBag):
-    smallBagDicts = bagDict2[currBag]
-
-    return [list(smallBagDict.values())[1] + list(smallBagDict.values())[1]*countChildren(list(smallBagDict.values())[0]) for smallBagDict in smallBagDicts]
+    smallerBagsDict = bagDict2[currBag]
+    # totalSmallerBags = sum(list(smallerBagsDict.values()))
+    # counter += totalSmallerBags
+    return [sum(int(smallBagQuantity) * countChildren(smallBagType), int(smallBagQuantity)) for smallBagType, smallBagQuantity in smallerBagsDict.items()]
+    # for item in smallerBagsDict.items():
+    #     return [
+    #      list(smallerBagsDict.values())[1] * countChildren(list(smallerBagsDict.values())[0])
 
 
 def main():
     global inp
-    inp = open("./day7ex.txt", 'r').read()
+    inp = open("./day7input.txt", 'r').read()
     inp = cleanUp(inp)  # inp is an
-    print(inp)
+    # print(inp)
 
     # PART 1
     bagDict = {}  # source bag "can be inside" target bag
@@ -54,8 +59,8 @@ def main():
 
     # PART 2
     global bagDict2
-    counter = 0
 
+    # construct dict of bags: bags inside them
     for elem in inp:
         bigBag = elem[0]
         littleBags = elem[1]
@@ -66,22 +71,22 @@ def main():
         # print(bigBag, littleBags)
 
         if bigBag not in bagDict2.keys():
-            bagDict2[bigBag] = []  # list of dicts
+            bagDict2[bigBag] = {}  # dict
 
         for littleBag in littleBags:
-            print(littleBag)
-            tempEmtry = littleBag.split(' ', 1)
-            # print(tempEmtry)
-            if tempEmtry[0] != 'no':
-                numBags = int(tempEmtry[0])
-                bagType = tempEmtry[1]
+            # print(littleBag)
+            tempEntry = littleBag.split(' ', 1)
+            # print(tempEntry)
+            if tempEntry[0] != 'no':
+                numBags = int(tempEntry[0])
+                bagType = tempEntry[1]
 
-                bagDict2[bigBag].append({bagType: numBags})
+                bagDict2[bigBag][bagType] = numBags
 
     # print(bagDict2)
+    global counter
     currBag = 'shiny gold'
-    counter = countChildren(currBag)
-    
+    counter = sum(countChildren(currBag), 0)
 
     print(f'part 2: {counter}')
 
