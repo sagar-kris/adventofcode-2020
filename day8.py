@@ -70,6 +70,8 @@ def main():
             else:
                 instrIdx -= currAmt
     print(f'part 1: {counter}')
+    print(f'part 1 loop indexes {len(setInstrIdx)}')
+    # print({321 in setInstrIdx})
 
     # PART 2
     for changedInstrIdx in range(len(inp)):
