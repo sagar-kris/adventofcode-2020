@@ -12,7 +12,7 @@ def cleanUp(inputFile):
 
 def twoSumExists(inpList, targetSum):
     for elemIdx, elem in enumerate(inpList):
-        if targetSum - elem in inpList[0:elemIdx] + inpList[elemIdx + 1:]:
+        if targetSum - elem in inpList[elemIdx + 1:]:
             return True
     return False
 
@@ -20,7 +20,7 @@ def twoSumExists(inpList, targetSum):
 def main():
     global inp
     inp = open("./day9input.txt", 'r').read()
-    inp = cleanUp(inp)  # inp is an
+    inp = cleanUp(inp)  # inp is a list of numbers
     # print(len(inp))
 
     # PART 1
