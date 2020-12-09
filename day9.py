@@ -26,10 +26,9 @@ def main():
     # PART 1
     streamLen = 25
     for i in range(streamLen, len(inp)):
-        prev = inp[i - streamLen:i]
-        # print(prev)
+        stream = inp[i - streamLen:i]
         currNum = inp[i]
-        if twoSumExists(prev, currNum):
+        if twoSumExists(stream, currNum):
             continue
         # twoSum failed
         print(f'part 1: {currNum}')
@@ -43,7 +42,7 @@ def main():
             break
         elif tempSum < currNum:
             hi += 1
-        else:
+        else:   # tempSum > currNum, so shring the range from the bottom
             lo += 1
     print(f'part 2: {min(inp[lo:hi]) + max(inp[lo:hi])}')
 
