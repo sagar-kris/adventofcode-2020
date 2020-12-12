@@ -16,12 +16,11 @@ def cleanUp(inputFile):
 
 def countChildren(currBag):
     smallerBagsDict = bagDict2[currBag]
-    # totalSmallerBags = sum(list(smallerBagsDict.values()))
-    # counter += totalSmallerBags
-    return [sum(int(smallBagQuantity) * countChildren(smallBagType), int(smallBagQuantity)) for smallBagType, smallBagQuantity in smallerBagsDict.items()]
-    # for item in smallerBagsDict.items():
-    #     return [
-    #      list(smallerBagsDict.values())[1] * countChildren(list(smallerBagsDict.values())[0])
+    return sum([smallBagQuantity * countChildren(smallBagType) + smallBagQuantity for smallBagType, smallBagQuantity in smallerBagsDict.items()])
+    '''
+    smallBagQuantity counts bags of a certain type at current layer
+    smallBagQuantity * countChildren(smallBagType)
+    '''
 
 
 def main():
@@ -86,7 +85,7 @@ def main():
     # print(bagDict2)
     global counter
     currBag = 'shiny gold'
-    counter = sum(countChildren(currBag), 0)
+    counter = countChildren(currBag)
 
     print(f'part 2: {counter}')
 
